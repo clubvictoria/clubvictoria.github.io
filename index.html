@@ -10,81 +10,67 @@
     body { font-family: Arial, sans-serif; padding: 20px; }
     input, select { margin: 5px 0; padding: 5px; }
     .actividad { border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
+
+    .contenedor {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    input, select, button {
+      font-size: 16px;
+      margin: 5px;
+      padding: 8px;
+    }
+
+    .actividad {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: white;
+    }
   </style>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-  }
-
-  .contenedor {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
-
-  input, select, button {
-    font-size: 16px;
-    margin: 5px;
-    padding: 8px;
-  }
-
-  .actividad {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: white;
-  }
-</style>
-
-  
 </head>
 <body>
 
   <div class="contenedor">
-  <h1>Club Social de Fomento Victoria</h1>
-  <img src="escudo.jpg" alt="escudo" style="width: 200px;" />
-  <h4>Ingeniero White 1153 - ☎ 4744-4188 </h4>
+    <h1>Club Social de Fomento Victoria</h1>
+    <img src="escudo.jpg" alt="escudo" style="width: 200px;" />
+    <h4>Ingeniero White 1153 - ☎ 4744-4188 </h4>
     <h5>Horario Administración: L a V - 16hs a 23hs</h5>
-  <button style="font-size: 16px; background-color: #25D366; color: white; border: none; padding: 10px 20px; border-radius: 5px;" onclick="window.location.href='https://wa.me/5491141571341'">
-  WhatsApp
-</button>
 
-  <h1>Actividades</h1>
-  
-   <label for="filtroNombre">Filtrar por actividad:</label>
-<select style="font-size: 16px;" id="filtroNombre" onchange="filtrarActividades()">
-  <option value="todas">Todas</option>
-  <option value="futbol_infantil">Fútbol infantil</option>
-  <option value="gimnasia">Gimnasia</option>
-  <option value="basquet">Basquet</option>
-  <option value="voley_femenino">Voley femenino</option>
-  <option value="natacion">Natacion</option>
-  <option value="gimnasio">Gym Victoria</option>
-  <option value="taekwondo">Taekwondo</option>
-</select>
+    <button style="font-size: 16px; background-color: #25D366; color: white; border: none; padding: 10px 20px; border-radius: 5px;" onclick="window.location.href='https://wa.me/5491141571341'">
+      WhatsApp
+    </button>
 
-  <label for="filtroEdad"><br>Filtrar por edad:</label>
-  <input type="number" style="font-size: 16px; width: 50px;" id="filtroEdad" placeholder="Ej: 10"/>
+    <h1>Actividades</h1>
+    
+    <label for="filtroNombre">Filtrar por actividad:</label>
+    <select style="font-size: 16px;" id="filtroNombre" onchange="filtrarActividades()">
+      <option value="todas">Todas</option>
+      <option value="futbol_infantil">Fútbol infantil</option>
+      <option value="gimnasia">Gimnasia</option>
+      <option value="basquet">Basquet</option>
+      <option value="voley_femenino">Voley femenino</option>
+      <option value="natacion">Natacion</option>
+      <option value="gimnasio">Gym Victoria</option>
+      <option value="taekwondo">Taekwondo</option>
+    </select>
 
-  <button style="font-size: 16px;" onclick="filtrarActividades()">Buscar</button>
- 
+    <label for="filtroEdad"><br>Filtrar por edad:</label>
+    <input type="number" style="font-size: 16px; width: 50px;" id="filtroEdad" placeholder="Ej: 10"/>
 
+    <button style="font-size: 16px;" onclick="filtrarActividades()">Buscar</button>
 
-div.innerHTML = `
-  <button onclick="mostrarDetalle('${act.nombre}')" 
-          style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px;">
-    ${act.nombre}
-  </button>
-  <div id="detalle-${act.nombre}" style="display: none; margin-top: 10px;"></div>
-`;
-  
-  <div id="listaActividades"></div>
+    <div id="listaActividades"></div>
+
+    <footer style="margin-top: 40px; font-size: 11px; color: #777;">
+      &copy; <span id="año"></span> Club Social de Fomento Victoria. Todos los derechos reservados.<br>
+      Desarrollado por Alejandro Marcos
+    </footer>
+  </div>
 
   <script>
     const actividades = [
@@ -111,28 +97,28 @@ div.innerHTML = `
       },
       {
         nombre: "Voley Femenino",
-        dias: "Martes, Miercoles y Jueves",
+        dias: "Martes, Miércoles y Jueves",
         horario: "17:00 - 20:00",
         edad_desde: 10,
         edad_hasta: 18
       },
       {
         nombre: "Natacion",
-        dias: "Martes, Miercoles y Jueves",
+        dias: "Martes, Miércoles y Jueves",
         horario: "17:00 - 20:00",
         edad_desde: 10,
         edad_hasta: 18
       },
-    {
+      {
         nombre: "Gym Victoria",
-        dias: "Martes, Miercoles y Jueves",
+        dias: "Martes, Miércoles y Jueves",
         horario: "17:00 - 20:00",
         edad_desde: 10,
         edad_hasta: 18
       },
-    {
+      {
         nombre: "Taekwondo",
-        dias: "Martes, Miercoles y Jueves",
+        dias: "Martes, Miércoles y Jueves",
         horario: "17:00 - 20:00",
         edad_desde: 10,
         edad_hasta: 18
@@ -146,76 +132,63 @@ div.innerHTML = `
         contenedor.innerHTML = "<p>No se encontraron actividades.</p>";
         return;
       }
+
       lista.forEach(act => {
         const div = document.createElement("div");
         div.className = "actividad";
         div.innerHTML = `
-          <strong>${act.nombre}</strong><br/>
-         
-          <!--<em>Días:</em> ${act.dias}<br/>
-          <em>Horario:</em> ${act.horario}<br/>
-          <em>Edades:</em> ${act.edad_desde} a ${act.edad_hasta} años-->
-          
+          <button onclick="mostrarDetalle('${act.nombre}')" 
+                  style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px;">
+            ${act.nombre}
+          </button>
+          <div id="detalle-${act.nombre}" style="display: none; margin-top: 10px;"></div>
         `;
         contenedor.appendChild(div);
       });
     }
 
     function mostrarDetalle(nombre) {
-  const actividad = actividades.find(act => act.nombre === nombre);
-  const detalleDiv = document.getElementById(`detalle-${nombre}`);
+      const actividad = actividades.find(act => act.nombre === nombre);
+      const detalleDiv = document.getElementById(`detalle-${nombre}`);
 
-  if (detalleDiv.style.display === "none") {
-    detalleDiv.innerHTML = `
-      <em>Días:</em> ${actividad.dias}<br/>
-      <em>Horario:</em> ${actividad.horario}<br/>
-      <em>Edades:</em> ${actividad.edad_desde} a ${actividad.edad_hasta} años
-    `;
-    detalleDiv.style.display = "block";
-  } else {
-    detalleDiv.style.display = "none";
-  }
-}
-
+      if (detalleDiv.style.display === "none") {
+        detalleDiv.innerHTML = `
+          <em>Días:</em> ${actividad.dias}<br/>
+          <em>Horario:</em> ${actividad.horario}<br/>
+          <em>Edades:</em> ${actividad.edad_desde} a ${actividad.edad_hasta} años
+        `;
+        detalleDiv.style.display = "block";
+      } else {
+        detalleDiv.style.display = "none";
+      }
+    }
 
     function filtrarActividades() {
-  const edad = parseInt(document.getElementById("filtroEdad").value);
-  const nombre = document.getElementById("filtroNombre").value.toLowerCase();
+      const edad = parseInt(document.getElementById("filtroEdad").value);
+      const nombre = document.getElementById("filtroNombre").value.toLowerCase();
 
-  const filtradas = actividades.filter(act => {
-    const coincideEdad = isNaN(edad) || (edad >= act.edad_desde && edad <= act.edad_hasta);
-    const coincideNombre = nombre === "todas" || act.nombre.toLowerCase() === nombre;
-    return coincideEdad && coincideNombre;
-  });
+      const filtradas = actividades.filter(act => {
+        const coincideEdad = isNaN(edad) || (edad >= act.edad_desde && edad <= act.edad_hasta);
+        const coincideNombre = nombre === "todas" || act.nombre.toLowerCase().replace(/\s/g, "_") === nombre;
+        return coincideEdad && coincideNombre;
+      });
 
-  mostrarActividades(filtradas);
-}
-
+      mostrarActividades(filtradas);
+    }
 
     // Mostrar todas al principio
     mostrarActividades(actividades);
+
+    // Año actual para el footer
+    document.getElementById("año").textContent = new Date().getFullYear();
+
+    // Asegurar que se cargue arriba del todo
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }, 50);
+    });
   </script>
 
-    <footer style="margin-top: 40px; font-size: 11px; color: #777;">
-  &copy; <span id="año"></span> Club Social de Fomento Victoria. Todos los derechos reservados.<br>
-  Desarrollado por Alejandro Marcos
-</footer>
-
-<script>
-  document.getElementById("año").textContent = new Date().getFullYear();
-</script>
-
-  </div>
-  <script>
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    }, 50);
-  });
-</script>
-
 </body>
- 
-
-  
 </html>
