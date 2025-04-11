@@ -76,7 +76,13 @@
  
 
 
-
+div.innerHTML = `
+  <button onclick="mostrarDetalle('${act.nombre}')" 
+          style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px;">
+    ${act.nombre}
+  </button>
+  <div id="detalle-${act.nombre}" style="display: none; margin-top: 10px;"></div>
+`;
   
   <div id="listaActividades"></div>
 
@@ -145,13 +151,32 @@
         div.className = "actividad";
         div.innerHTML = `
           <strong>${act.nombre}</strong><br/>
+         
           <!--<em>Días:</em> ${act.dias}<br/>
           <em>Horario:</em> ${act.horario}<br/>
           <em>Edades:</em> ${act.edad_desde} a ${act.edad_hasta} años-->
+          
         `;
         contenedor.appendChild(div);
       });
     }
+
+    function mostrarDetalle(nombre) {
+  const actividad = actividades.find(act => act.nombre === nombre);
+  const detalleDiv = document.getElementById(`detalle-${nombre}`);
+
+  if (detalleDiv.style.display === "none") {
+    detalleDiv.innerHTML = `
+      <em>Días:</em> ${actividad.dias}<br/>
+      <em>Horario:</em> ${actividad.horario}<br/>
+      <em>Edades:</em> ${actividad.edad_desde} a ${actividad.edad_hasta} años
+    `;
+    detalleDiv.style.display = "block";
+  } else {
+    detalleDiv.style.display = "none";
+  }
+}
+
 
     function filtrarActividades() {
   const edad = parseInt(document.getElementById("filtroEdad").value);
