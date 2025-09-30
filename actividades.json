@@ -20,4 +20,16 @@
       { "nombre": "General", "dias": "Martes y Jueves", "horario": "19:00-20:00", "edad_desde": 1, "edad_hasta": 99 }
     ]
   }
+  {
+    "nombre": "Natacion",
+    "categorias": [
+      {
+        "nombre": "Adultos", "dias": "Martes, Jueves, Sabado", "horario": "19:00-20:00","edad_desde": 1, "edad_hasta": 99
+      },
+      {
+        "nombre": "Libre", "dias": "Martes, Jueves, Sabado", "horario": "19:00-20:00","edad_desde": 1, "edad_hasta": 99
+      }
+      
+    ]
+  }
 ]
