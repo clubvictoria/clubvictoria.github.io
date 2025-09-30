@@ -1,0 +1,23 @@
+[
+  {
+    "nombre": "Basquet",
+    "categorias": [
+      { "nombre": "Mini", "dias": "Lunes y Miércoles", "horario": "17:00-18:00", "edad_desde": 6, "edad_hasta": 7 },
+      { "nombre": "Pre Mini", "dias": "Lunes y Miércoles", "horario": "18:00-19:00", "edad_desde": 8, "edad_hasta": 9 },
+      { "nombre": "U15", "dias": "Lunes y Miércoles", "horario": "19:00-20:30", "edad_desde": 13, "edad_hasta": 15 }
+    ]
+  },
+  {
+    "nombre": "Fútbol Infantil",
+    "categorias": [
+      { "nombre": "Mini", "dias": "Lunes y Miércoles", "horario": "17:00-18:30", "edad_desde": 6, "edad_hasta": 8 },
+      { "nombre": "U10", "dias": "Lunes y Miércoles", "horario": "18:30-20:00", "edad_desde": 9, "edad_hasta": 10 }
+    ]
+  },
+  {
+    "nombre": "Gimnasia",
+    "categorias": [
+      { "nombre": "General", "dias": "Martes y Jueves", "horario": "19:00-20:00", "edad_desde": 1, "edad_hasta": 99 }
+    ]
+  }
+]
