@@ -14,8 +14,9 @@
 
     button { font-size: 16px; margin: 5px; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
     .wa-btn { background-color: #25D366; color: white; font-weight: bold; border: none; }
+    .actividad-btn { background-color: #0484b4; color: white; border: none; margin: 3px; padding: 8px 12px; border-radius: 5px; }
 
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; display: none; }
     th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
     th { background-color: #0484b4; color: white; }
     tr:nth-child(even) { background-color: #f9f9f9; }
@@ -42,6 +43,9 @@
 
   <h1>Actividades</h1>
 
+  <!-- Botones de actividades -->
+  <div id="botonesActividades" style="margin-bottom: 20px;"></div>
+
   <!-- Tabla dinámica -->
   <table id="tablaActividades">
     <thead>
@@ -63,15 +67,41 @@
 </div>
 
 <script>
-  async function cargarTabla() {
-    const tbody = document.querySelector("#tablaActividades tbody");
-    tbody.innerHTML = "";
+  let actividades = [];
 
+  // Cargar actividades desde JSON externo
+  async function cargarActividades() {
     try {
       const res = await fetch('actividades.json');
-      const actividades = await res.json();
+      actividades = await res.json();
+      generarBotones();
+    } catch (err) {
+      console.error("Error al cargar JSON:", err);
+    }
+  }
 
-      actividades.forEach(act => {
+  // Crear botones dinámicos
+  function generarBotones() {
+    const cont = document.getElementById("botonesActividades");
+    cont.innerHTML = "";
+
+    actividades.forEach(act => {
+      const btn = document.createElement("button");
+      btn.textContent = act.nombre;
+      btn.className = "actividad-btn";
+      btn.onclick = () => mostrarTabla(act.nombre);
+      cont.appendChild(btn);
+    });
+  }
+
+  // Mostrar tabla de la actividad seleccionada
+  function mostrarTabla(filtroNombre) {
+    const tabla = document.getElementById("tablaActividades");
+    const tbody = tabla.querySelector("tbody");
+    tbody.innerHTML = "";
+
+    actividades.forEach(act => {
+      if (act.nombre === filtroNombre) {
         act.categorias.forEach(cat => {
           const tr = document.createElement("tr");
           tr.innerHTML = `
@@ -83,14 +113,14 @@
           `;
           tbody.appendChild(tr);
         });
-      });
-    } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="5">Error cargando actividades</td></tr>`;
-      console.error("Error al cargar JSON:", err);
-    }
+      }
+    });
+
+    tabla.style.display = "table";
   }
 
-  cargarTabla();
+  // Inicializamos
+  cargarActividades();
   document.getElementById("año").textContent = new Date().getFullYear();
 </script>
 
