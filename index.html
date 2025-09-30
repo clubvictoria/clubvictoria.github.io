@@ -4,192 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Club Social de Fomento Victoria</title>
-  <link rel="icon" href="escudo.jpg" type="image/jpg">
-
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    input, select { margin: 5px 0; padding: 5px; }
-    .actividad { border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
-
-    .contenedor {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      text-align: center;
-    }
-
-    input, select, button {
-      font-size: 16px;
-      margin: 5px;
-      padding: 8px;
-    }
-
-    .actividad {
-      border: 1px;
-      border-radius: 8px;
-      padding: 5px;
-      margin-bottom: 5px;
-      background-color: white;
-    }
+    input, select, button { margin: 5px 0; padding: 5px; font-size: 16px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #0484b4; color: white; }
+    tr:nth-child(even) { background-color: #f9f9f9; }
   </style>
 </head>
 <body>
+  <h1>Actividades del Club</h1>
 
-  <div class="contenedor">
-    <h1>Club Social de Fomento Victoria</h1>
-    <img src="escudo.jpg" alt="escudo" style="width: 200px;" />
-    <h4>Ingeniero White 1153 - ☎ 4744-4188 </h4>
-    <h5>Horario Administración: L a V - 16hs a 23hs</h5>
+  <label for="filtroEdad">Filtrar por edad:</label>
+  <input type="number" id="filtroEdad" placeholder="Ej: 10" />
+  <button onclick="cargarTabla()">Buscar</button>
 
-    <button style="font-size: 16px; background-color: #25D366; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 5px;" onclick="window.location.href='https://wa.me/5491141571341'">
-      WhatsApp
-    </button>
-
-    <h1>Actividades</h1>
-    
-    <label for="filtroNombre">Filtrar por actividad:</label>
-    <select style="font-size: 16px;" id="filtroNombre" onchange="filtrarActividades()">
-      <option value="todas">Todas</option>
-      <option value="futbol_infantil">Fútbol infantil</option>
-      <option value="gimnasia">Gimnasia</option>
-      <option value="basquet">Basquet</option>
-      <option value="voley_femenino">Voley femenino</option>
-      <option value="natacion">Natacion</option>
-      <option value="gimnasio">Gym Victoria</option>
-      <option value="taekwondo">Taekwondo</option>
-    </select>
-
-    <label for="filtroEdad"><br>Filtrar por edad:</label>
-    <input type="number" style="font-size: 16px; width: 50px;" id="filtroEdad" placeholder="Ej: 10"/>
-
-    <button style="font-size: 16px;" onclick="filtrarActividades()">Buscar</button>
-
-    <div id="listaActividades"></div>
-
-    <footer style="margin-top: 40px; font-size: 11px; color: #777;">
-      &copy; <span id="año"></span> Club Social de Fomento Victoria. Todos los derechos reservados.<br>
-      Desarrollado por Alejandro Marcos
-    </footer>
-  </div>
+  <table id="tablaActividades">
+    <thead>
+      <tr>
+        <th>Actividad</th>
+        <th>Categoría</th>
+        <th>Días</th>
+        <th>Horario</th>
+        <th>Edades</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Se llenará dinámicamente -->
+    </tbody>
+  </table>
 
   <script>
-    const actividades = [
-      {
-        nombre: "Basquet",
-        dias: "Lunes y Miércoles",
-        horario: "17:00 - 18:30",
-        edad_desde: 6,
-        edad_hasta: 12
-      },
-      {
-        nombre: "Fútbol Infantil",
-        dias: "Lunes y Miércoles",
-        horario: "17:00 - 18:30",
-        edad_desde: 6,
-        edad_hasta: 12
-      },
-      {
-        nombre: "Gimnasia",
-        dias: "Martes y Jueves",
-        horario: "19:00 - 20:00",
-        edad_desde: 1,
-        edad_hasta: 99
-      },
-      {
-        nombre: "Voley Femenino",
-        dias: "Martes, Miércoles y Jueves",
-        horario: "17:00 - 20:00",
-        edad_desde: 10,
-        edad_hasta: 18
-      },
-      {
-        nombre: "Natacion",
-        dias: "Martes, Miércoles y Jueves",
-        horario: "17:00 - 20:00",
-        edad_desde: 10,
-        edad_hasta: 18
-      },
-      {
-        nombre: "Gym Victoria",
-        dias: "Martes, Miércoles y Jueves",
-        horario: "17:00 - 20:00",
-        edad_desde: 10,
-        edad_hasta: 18
-      },
-      {
-        nombre: "Taekwondo",
-        dias: "Martes, Miércoles y Jueves",
-        horario: "17:00 - 20:00",
-        edad_desde: 10,
-        edad_hasta: 18
-      }
-    ];
+    async function cargarTabla() {
+      const edadFiltro = parseInt(document.getElementById("filtroEdad").value);
+      const tbody = document.querySelector("#tablaActividades tbody");
+      tbody.innerHTML = "";
 
-    function mostrarActividades(lista) {
-      const contenedor = document.getElementById("listaActividades");
-      contenedor.innerHTML = "";
-      if (lista.length === 0) {
-        contenedor.innerHTML = "<p>No se encontraron actividades.</p>";
-        return;
-      }
+      // Cargar JSON externo
+      const res = await fetch('actividades.json');
+      const actividades = await res.json();
 
-      lista.forEach(act => {
-        const div = document.createElement("div");
-        div.className = "actividad";
-        div.innerHTML = `
-          <button onclick="mostrarDetalle('${act.nombre}')" 
-          
-                  style="background-color: #0484b4; color: white; font-weight: bold; border: none; padding: 1px 1px; border-radius: 5px; width: 250px; height: 40px;">
-            ${act.nombre}
-          </button>
-          <div id="detalle-${act.nombre}" style="display: none; margin-top: 5px;"></div>
-        `;
-        contenedor.appendChild(div);
+      actividades.forEach(act => {
+        act.categorias.forEach(cat => {
+          if (!edadFiltro || (edadFiltro >= cat.edad_desde && edadFiltro <= cat.edad_hasta)) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${act.nombre}</td>
+              <td>${cat.nombre}</td>
+              <td>${cat.dias}</td>
+              <td>${cat.horario}</td>
+              <td>${cat.edad_desde} - ${cat.edad_hasta}</td>
+            `;
+            tbody.appendChild(tr);
+          }
+        });
       });
     }
 
-    function mostrarDetalle(nombre) {
-      const actividad = actividades.find(act => act.nombre === nombre);
-      const detalleDiv = document.getElementById(`detalle-${nombre}`);
-
-      if (detalleDiv.style.display === "none") {
-        detalleDiv.innerHTML = `
-          <em>Días:</em> ${actividad.dias}<br/>
-          <em>Horario:</em> ${actividad.horario}<br/>
-          <em>Edades:</em> ${actividad.edad_desde} a ${actividad.edad_hasta} años
-        `;
-        detalleDiv.style.display = "block";
-      } else {
-        detalleDiv.style.display = "none";
-      }
-    }
-
-    function filtrarActividades() {
-      const edad = parseInt(document.getElementById("filtroEdad").value);
-      const nombre = document.getElementById("filtroNombre").value.toLowerCase();
-
-      const filtradas = actividades.filter(act => {
-        const coincideEdad = isNaN(edad) || (edad >= act.edad_desde && edad <= act.edad_hasta);
-        const coincideNombre = nombre === "todas" || act.nombre.toLowerCase().replace(/\s/g, "_") === nombre;
-        return coincideEdad && coincideNombre;
-      });
-
-      mostrarActividades(filtradas);
-    }
-
-    // Mostrar todas al principio
-    mostrarActividades(actividades);
-
-    // Año actual para el footer
-    document.getElementById("año").textContent = new Date().getFullYear();
-
-    // Asegurar que se cargue arriba del todo
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      }, 50);
-    });
+    // Cargar todas al inicio
+    cargarTabla();
   </script>
-
 </body>
 </html>
