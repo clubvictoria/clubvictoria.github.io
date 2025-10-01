@@ -7,6 +7,22 @@
   <link rel="icon" href="escudo.jpg" type="image/jpg">
 
   <style>
+    .btn-form {
+      background-color: #0484b4;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn-form:hover {
+      background-color: #036699;
+    }
+  </style>
+
+  <style>
     body { font-family: Arial, sans-serif; padding: 10px; margin: 0; }
     .contenedor { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
     h1,h4,h5 { margin: 5px 0; }
@@ -39,7 +55,17 @@
   <h4>Ingeniero White 1153 - ☎ 4744-4188 </h4>
   <h5>Horario Administración: L a V - 16hs a 23hs</h5>
 
-  <button class="wa-btn" onclick="window.location.href='https://wa.me/5491141571341'">WhatsApp</button>
+  <button class="wa-btn" onclick="window.location.href='https://wa.me/5491141571341'">WhatsApp Administración</button>
+
+  <button class="btn-form" onclick="abrirForm()">Completar Formulario</button>
+
+  <script>
+    function abrirForm() {
+      // URL de tu Google Form
+      const urlForm = "https://docs.google.com/forms/d/e/TU_FORM_ID/viewform";
+      window.open(urlForm, "_blank"); // Abre en nueva pestaña
+    }
+  </script>
 
   <h1>Actividades</h1>
 
